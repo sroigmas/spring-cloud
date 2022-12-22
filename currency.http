@@ -1,0 +1,8 @@
+< {%
+  request.variables.set("fromCcy", "EUR")
+  request.variables.set("toCcy", "USD")
+%}
+GET http://localhost:8000/currency-exchange/from/{{fromCcy}}/to/{{toCcy}}
+
+###
+
