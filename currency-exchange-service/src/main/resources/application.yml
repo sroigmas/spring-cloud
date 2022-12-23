@@ -1,3 +1,5 @@
+server:
+  port: 8000
 spring:
   application:
     name: currency-exchange
@@ -11,5 +13,3 @@ spring:
       enabled: true
   jpa:
     defer-datasource-initialization: true
-server:
-  port: 8000

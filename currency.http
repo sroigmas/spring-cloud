@@ -6,3 +6,12 @@ GET http://localhost:8000/currency-exchange/from/{{fromCcy}}/to/{{toCcy}}
 
 ###
 
+< {%
+  request.variables.set("fromCcy", "EUR")
+  request.variables.set("toCcy", "USD")
+  request.variables.set("amount", "102.5")
+%}
+GET http://localhost:8100/currency-conversion/from/{{fromCcy}}/to/{{toCcy}}/amount/{{amount}}
+
+###
+
