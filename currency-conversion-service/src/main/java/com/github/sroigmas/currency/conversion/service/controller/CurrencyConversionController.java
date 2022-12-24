@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/currency-conversion")
@@ -15,8 +16,12 @@ public class CurrencyConversionController {
 
   @GetMapping("/from/{fromCcy}/to/{toCcy}/amount/{amount}")
   public CurrencyConversionDto calculateCurrencyConversion(@PathVariable String fromCcy,
-      @PathVariable String toCcy, @PathVariable String amount) {
-    return new CurrencyConversionDto(1L, fromCcy, toCcy, new BigDecimal("5.5"),
-        new BigDecimal(amount), null, "");
+      @PathVariable String toCcy, @PathVariable BigDecimal amount) {
+    CurrencyConversionDto currencyConversion = new RestTemplate()
+        .getForEntity("http://localhost:8000/currency-exchange/from/{fromCcy}/to/{toCcy}",
+            CurrencyConversionDto.class, fromCcy, toCcy).getBody();
+    currencyConversion.setConvertedAmount(
+        amount.multiply(currencyConversion.getConversionMultiple()));
+    return currencyConversion;
   }
 }
