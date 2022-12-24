@@ -18,6 +18,7 @@
   <modules>
     <module>currency-exchange-service</module>
     <module>currency-conversion-service</module>
+    <module>service-registry</module>
   </modules>
 
 </project>
